@@ -46,6 +46,7 @@ var bagIndex = 0;
 
 //Game values
 var score = 0;
+var speed = 500;
 var speeds = [500, 100, 1, 0];
 var changeSpeed = false;
 var saveState;
@@ -67,7 +68,7 @@ var archive = {
     populationSize: 0,
     currentGeneration: 0,
     elites: [],
-    genomes =[]
+    genomes: []
 };
 var mutationRate = 0.05;
 var mutationStep = 0.2;
@@ -290,12 +291,12 @@ function makeChild(mom, dad) {
         //unique id
         id: Math.random(),
         //all of these parameters are chosen randomly from mom and dad genome
-        rowsCleared: randomChoice(mum.rowsCleared, dad.rowsCleared),
-        weightedHeight: randomChoice(mum.weightedHeight, dad.weightedHeight),
-        cumulativeHeight: randomChoice(mum.cumulativeHeight, dad.cumulativeHeight),
-        relativeHeight: randomChoice(mum.relativeHeight, dad.relativeHeight),
-        holes: randomChoice(mum.holes, dad.holes),
-        roughness: randomChoice(mum.roughness, dad.roughness),
+        rowsCleared: randomChoice(mom.rowsCleared, dad.rowsCleared),
+        weightedHeight: randomChoice(mom.weightedHeight, dad.weightedHeight),
+        cumulativeHeight: randomChoice(mom.cumulativeHeight, dad.cumulativeHeight),
+        relativeHeight: randomChoice(mom.relativeHeight, dad.relativeHeight),
+        holes: randomChoice(mom.holes, dad.holes),
+        roughness: randomChoice(mom.roughness, dad.roughness),
         //No fitness yet
         fitness: -1
     }
@@ -408,7 +409,7 @@ function getHighestRatedMove(moves){
     var maxMove = -1;
     var ties = [];
     //iterate through the list of moves
-    for (var index = 0; i < moves.length; index++){
+    for (var index = 0; index < moves.length; index++){
         //if the current move's rating is higher than our max rating
         if (moves[index].rating > maxRating){
             //update our max values to include this move's values
